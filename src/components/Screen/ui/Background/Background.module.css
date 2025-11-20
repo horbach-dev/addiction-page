@@ -1,0 +1,21 @@
+.container {
+  position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 130vw;
+    opacity: 0;
+    transition: opacity 0.4s;
+    user-select: none;
+}
+
+.containerShow {
+    opacity: 1;
+}
+
+.container img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.15;
+    object-fit: cover;
+    object-position: bottom;
+}

@@ -1,0 +1,29 @@
+.container {
+    width: 100%;
+}
+
+.item {
+    border-radius: 3vw;
+    background-color: rgba(255,255,255,0.05);
+    padding: 4vw 5vw;
+    font-size: 4vw;
+    font-weight: 600;
+    margin-bottom: 3vw;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.25s;
+}
+
+.item:hover {
+    background-color: rgba(255,255,255,0.15);
+}
+
+.item:active:not(.itemActive) {
+    /*opacity: 0.8;*/
+}
+
+.itemActive {
+    font-weight: 700;
+    background-color: rgba(255,255,255,0.35);
+}
