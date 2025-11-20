@@ -21,5 +21,8 @@ export default defineConfig(({ mode }) => {
         env.VITE_NGROK_DOMAIN?.replace('https://', '').replace('http://', ''),
       ],
     },
+    build: {
+      outDir: 'docs',
+    },
   }
 })
