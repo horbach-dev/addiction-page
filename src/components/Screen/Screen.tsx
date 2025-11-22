@@ -9,6 +9,7 @@ import { Indicator } from "./ui/Indicator";
 import { Picker } from "./ui/Picker";
 import { options, getSectionIndex, COLORS, problems } from "./config";
 import styles from './Screen.module.css';
+import {updateUserData} from "../../services/updateUserData.ts";
 
 const TRANSITION_ANIMATION = 400
 const DEFAULT_VALUE = 18
@@ -25,7 +26,11 @@ export const Screen = () => {
   const sectionIndex = getSectionIndex(value)
   const currentColor = COLORS[sectionIndex]
 
-  const handleSelectProblem = (value: string | null) => {
+  const handleSelectProblem = (value: TProblem) => {
+    if (value !== null) {
+      updateUserData({ type: value })
+    }
+
     setIsAnimating(true)
 
      setTimeout(() => {
@@ -38,6 +43,7 @@ export const Screen = () => {
   }
 
   const handleApprove = () => {
+    updateUserData({ level: value })
     setEnd(true)
 
     setTimeout(() => {
@@ -89,7 +95,7 @@ export const Screen = () => {
                   <Options
                     value={currentProblem}
                     options={problems}
-                    onChange={handleSelectProblem}
+                    onChange={(value) => handleSelectProblem(value as TProblem)}
                   />
                 </div>
               )}
