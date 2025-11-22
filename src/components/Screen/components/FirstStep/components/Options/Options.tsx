@@ -1,13 +1,15 @@
 import clsx from "clsx";
 import styles from './Options.module.css'
 
+type TOption = { value: string, label: string }
+
 interface IProps {
-  options: { value: string, label: string }[];
+  options: TOption[];
   value: string | null;
   onChange: (value: string) => void;
 }
 
-export const Options = ({ options, value, onChange }: IProps) => {
+export function Options({ options, value, onChange }: IProps) {
   return (
     <div className={styles.container}>
       {options.map((option) => (

@@ -1,0 +1,43 @@
+.container {
+    filter: blur(10px);
+    will-change: filter;
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.5s;
+}
+
+.containerShow {
+    filter: none;
+    pointer-events: auto;
+}
+
+.action {
+    --default-padding-bottom: 0;
+    position: relative;
+    width: 100%;
+    padding: 4vw 4vw calc(4vw + var(--default-padding-bottom)) 4vw;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.button {
+    width: 100%;
+    padding: 3.5vw;
+    border-radius: 3vw;
+    outline: none;
+    border: none;
+    color: #ffffff;
+    font-size: 4vw;
+    font-weight: 600;
+    box-shadow: 0 0 3vw 1vw rgba(33,33,33,0.3);
+    background: var(--current-color, #0986f6);
+    cursor: pointer;
+    transition: background-color 0.5s, opacity 0.2s;
+}
+
+.button:hover {
+    opacity: 0.85;
+}
+
+.button:disabled {
+    opacity: 0.5;
+}

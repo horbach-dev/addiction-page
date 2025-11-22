@@ -1,128 +1,74 @@
-import { useState } from "react";
-import { closeMiniApp } from '@telegram-apps/sdk-react';
+import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { useSafeArea } from "../../hooks/useSafeArea";
+import { trackUserVisit } from "../../services/trackUserVisit";
 import { Page } from "../Page";
-import { Background } from "./ui/Background";
-import { Options } from "./ui/Options";
-import { Indicator } from "./ui/Indicator";
-import { Picker } from "./ui/Picker";
-import { options, getSectionIndex, COLORS, problems } from "./config";
+import { Background } from "./components/Background";
+import { Footer } from "./components/Footer";
+import { COLORS, STEPS, getSectionIndex } from "./config";
+import type { TProblem, TStep } from "./types";
 import styles from './Screen.module.css';
-import {updateUserData} from "../../services/updateUserData.ts";
 
 const TRANSITION_ANIMATION = 400
 const DEFAULT_VALUE = 18
-type TProblem = 'casino' | 'betting' | 'trading' | null
 
 export const Screen = () => {
-  const [isEnd, setEnd] = useState<boolean>(false);
-  const [isEndContent, setIsEndContent] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [currentProblem, setCurrentProblem] = useState<TProblem>(null)
-  const [value, setValue] = useState<number>(DEFAULT_VALUE)
-  const { bottom } = useSafeArea()
+  const [value, setValue] = useState<number>(DEFAULT_VALUE);
+  const [currentStep, setCurrentStep] = useState<TStep>(0);
+  const [currentProblem, setCurrentProblem] = useState<TProblem>(null);
 
-  const sectionIndex = getSectionIndex(value)
-  const currentColor = COLORS[sectionIndex]
+  useEffect(() => {
+    trackUserVisit().finally(() => {
+      handleNextStep(1)
+    })
+  }, [])
 
-  const handleSelectProblem = (value: TProblem) => {
-    if (value !== null) {
-      updateUserData({ type: value })
-    }
-
+  const handleNextStep = (step: TStep) => {
     setIsAnimating(true)
 
-     setTimeout(() => {
-       setIsAnimating(false)
-       setCurrentProblem(value as TProblem)
-       if (value === null) {
-         setValue(DEFAULT_VALUE)
-       }
-     }, TRANSITION_ANIMATION)
-  }
-
-  const handleApprove = () => {
-    updateUserData({ level: value })
-    setEnd(true)
-
     setTimeout(() => {
-      setEnd(false)
-      setIsEndContent(true)
+      setCurrentStep(step)
+      setIsAnimating(false)
     }, TRANSITION_ANIMATION)
   }
 
+  const handleBack = () => {
+    if (currentStep === 1) return
+    handleNextStep(currentStep - 1 as TStep)
+  }
+
+  const CurrentStep = STEPS[currentStep]
+  const sectionIndex = getSectionIndex(value)
+  const currentColor = COLORS[sectionIndex]
+
   return (
-    <Page back={!!currentProblem && !isEndContent} onClick={() => handleSelectProblem(null)}>
-      <Background key={currentProblem} type={currentProblem} />
-      <div className={clsx(styles.container, isEnd && styles.containerEnd)}>
-        {isEndContent ? (
-          <div className={styles.endContent}>
-            <p>
-              Спасибо за ответ! <br />
-              {value === 0 ? 'Похоже вы не нуждаетесь в лечении!' : 'Мы подбираем для вас курс лечения'}
-            </p>
-            <button
-              className={styles.button}
-              disabled={!currentProblem}
-              style={{ background: currentColor }}
-              onClick={() => closeMiniApp()}
-            >
-              Закрыть приложение
-            </button>
-          </div>
-        ) : (
-          <>
-            <div className={clsx(styles.content, isAnimating && styles.contentHide)}>
-              {currentProblem ? (
-                <>
-                  <div className={styles.view}>
-                    <p className={styles.question}>
-                      Выберите вариант приближенный к вашей ситуации
-                    </p>
-                    <Picker
-                      options={options[currentProblem]}
-                      value={value}
-                      setValue={(value) => setValue(value as number)}
-                    />
-                  </div>
-                </>
-              ) : (
-                <div className={styles.view}>
-                  <p className={styles.question}>
-                    Какой вид азартной деятельности вас беспокоит?
-                  </p>
-                  <Options
-                    value={currentProblem}
-                    options={problems}
-                    onChange={(value) => handleSelectProblem(value as TProblem)}
-                  />
-                </div>
-              )}
-            </div>
-            <div className={clsx(styles.indicator, currentProblem && styles.indicatorShow)}>
-              <Indicator
-                value={value}
-                currentColor={currentColor}
-                sectionIndex={sectionIndex}
-              />
-              <div
-                // @ts-ignore
-                style={{ '--default-padding-bottom': bottom + 'px' }}
-                className={styles.footer}
-              >
-                <button
-                  className={styles.button}
-                  disabled={!currentProblem}
-                  style={{ background: currentColor }}
-                  onClick={handleApprove}
-                >
-                  Подтвердить проблему
-                </button>
-              </div>
-            </div>
-          </>
-        )}
+    <Page
+      back={!!currentProblem}
+      onClick={handleBack}
+    >
+      <Background
+        key={currentProblem}
+        type={currentProblem}
+      />
+      <div
+        // @ts-ignore
+        style={{ '--current-color': currentColor }}
+        className={styles.container}
+      >
+        <div className={clsx(styles.content, isAnimating && styles.contentHide)}>
+          <CurrentStep
+            value={value}
+            setValue={setValue}
+            currentProblem={currentProblem}
+            setCurrentProblem={setCurrentProblem}
+            handleNextStep={handleNextStep}
+          />
+        </div>
+        <Footer
+          value={value}
+          isShow={currentStep === 2}
+          handleNextStep={handleNextStep}
+        />
       </div>
     </Page>
   )

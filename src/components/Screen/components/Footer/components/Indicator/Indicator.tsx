@@ -20,19 +20,14 @@ export const Indicator = ({ value = 90, currentColor, sectionIndex }: IProps) =>
       <div
         style={{
           // @ts-ignore
-          '--color': currentColor,
           '--angel-rotation': `${START + (END - START) * (value / 100)}deg`,
         }}
         className={styles.circle}
       >
         <span className={styles.angel} />
       </div>
-      {/*@ts-ignore*/}
-      <p style={{ '--color': currentColor }} className={styles.value}>{value}</p>
-      <svg
-        // @ts-ignore
-        style={{ '--color': currentColor }}
-        width="400" height="210" viewBox="0 0 400 210" fill="none">
+      <p className={styles.value}>{value}</p>
+      <svg width="400" height="210" viewBox="0 0 400 210" fill="none">
         <g opacity="0.5">
           <mask id="path-1-inside-1_9_87" fill='white'>
             <path d="M67.9284 75.2338C64.7044 72.2126 59.6272 72.3667 56.745 75.7155C29.0358 107.911 12.9778 148.516 11.1711 190.956C10.9832 195.37 14.5817 198.955 19 198.956L71.04 198.969C75.4583 198.97 79.0133 195.384 79.3063 190.976C80.9781 165.817 90.4759 141.8 106.464 122.303C109.266 118.887 109.125 113.839 105.901 110.818L67.9284 75.2338Z"/>

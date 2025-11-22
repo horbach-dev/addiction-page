@@ -1,9 +1,9 @@
 import { db } from '../utils/firebaseConfig';
 import { doc, setDoc } from "firebase/firestore";
-import {getTelegramUser} from "../utils/getTelegramUser.ts";
+import { getTelegramUser } from "../utils/getTelegramUser";
 
 type TData = {
-  type?: 'casino' | 'betting' | 'trading';
+  type?: string;
   level?: number;
 }
 

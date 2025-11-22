@@ -1,6 +1,6 @@
 import { WheelPicker, WheelPickerWrapper } from "@ncdai/react-wheel-picker";
 import styles from './Picker.module.css'
-import {useWindowSize} from "../../../../hooks/useWindowSize.ts";
+import {useWindowSize} from "../../../../../../hooks/useWindowSize.ts";
 
 interface IProps {
   options: { value: number | string, label: string }[];

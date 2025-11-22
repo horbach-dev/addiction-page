@@ -11,7 +11,7 @@
 .container svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 5vw var(--color));
+    filter: drop-shadow(0 0 5vw var(--current-color));
 }
 
 .path {
@@ -39,8 +39,8 @@
     height: 0;
     border-left: 3.5vw solid transparent;
     border-right: 3.5vw solid transparent;
-    border-bottom: 7vw solid var(--color);
-    filter: drop-shadow(0 0 5vw var(--color));
+    border-bottom: 7vw solid var(--current-color);
+    filter: drop-shadow(0 0 5vw var(--current-color));
     transition: border-bottom-color 0.5s, border-left-color 0.5s, border-right-color 0.5s;
 }
 
@@ -49,8 +49,8 @@
     position: absolute;
     bottom: 1vw;
     font-size: 8vw;
-    color: var(--color);
+    color: var(--current-color);
     font-weight: 900;
-    filter: drop-shadow(0 0 3vw var(--color));
+    filter: drop-shadow(0 0 3vw var(--current-color));
     transition: color 0.5s, filter 0.5s;
 }

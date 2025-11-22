@@ -1,8 +1,14 @@
-// export const questions = {
-//   casino: 'Выберите вариант максимально приближенный к вашей ситуации с играми в онлайн-казино',
-//   betting: 'Выберите вариант максимально приближенный к вашей ситуации со ставками',
-//   trading: 'Выберите вариант приближенный к вашей ситуации с торговлей на финансовых рынках'
-// }
+import { Loading } from "./components/Loading";
+import { FirstStep } from "./components/FirstStep";
+import { SecondStep } from "./components/SecondStep";
+import { LastStep } from "./components/LastStep";
+
+export const STEPS = {
+  0: Loading,
+  1: FirstStep,
+  2: SecondStep,
+  3: LastStep,
+}
 
 export const problems = [
   { label: 'Казино', value: 'casino' },
@@ -68,7 +74,6 @@ export const getSectionIndex = (value: number) => {
   if (value >= 22) {
     return 1
   }
-
   return 0
 }
 

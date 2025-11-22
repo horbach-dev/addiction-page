@@ -14,7 +14,7 @@ export const trackUserVisit = async () => {
         user_id: id,
         avatar,
         first_name,
-        username: username || 'N/A',
+        username,
         first_visit_at: new Date().toISOString(),
         type: null,
         level: null
