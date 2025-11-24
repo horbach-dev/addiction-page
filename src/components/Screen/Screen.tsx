@@ -22,13 +22,13 @@ export const Screen = () => {
     })
   }, [])
 
-  const handleNextStep = (step: TStep) => {
+  const handleNextStep = (step: TStep, isBack?: boolean) => {
     setIsAnimating(true)
 
     setTimeout(() => {
       setCurrentStep(step)
       setIsAnimating(false)
-      if (step === 2) {
+      if (isBack && step === 2) {
         setCurrentProblem(null)
       }
     }, TRANSITION_ANIMATION)
@@ -36,7 +36,7 @@ export const Screen = () => {
 
   const handleBack = () => {
     if (currentStep === 1) return
-    handleNextStep(currentStep - 1 as TStep)
+    handleNextStep(currentStep - 1 as TStep, true)
   }
 
   const CurrentStep = STEPS[currentStep]

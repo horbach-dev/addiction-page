@@ -8,5 +8,5 @@ export type TStepProps = {
   setValue: (value: number) => void;
   currentProblem: TProblem;
   setCurrentProblem: (value: TProblem) => void;
-  handleNextStep: (value: TStep) => void;
+  handleNextStep: (value: TStep, isBack?: boolean) => void;
 }

@@ -12,17 +12,23 @@
     font-size: 4.5vw;
     text-align: center;
     font-weight: 900;
-    margin-bottom: 5vw;
+    margin-bottom: 8vw;
 }
 
 .button {
+    align-self: center;
     font-size: 3.5vw;
     font-weight: 700;
-    padding: 2vw;
+    padding: 3vw 4vw;
     line-height: 2vw;
-    background: none;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4vw;
     border: none;
     outline: none;
     color: white;
-    text-decoration: underline;
+    transition: background-color 0.2s;
+}
+
+.button:hover {
+    background: rgba(255,255,255,0.1);
 }
