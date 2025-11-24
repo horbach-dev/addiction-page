@@ -32,7 +32,7 @@ export const Screen = () => {
     }, TRANSITION_ANIMATION)
   }
 
-  const handleBack = () => {
+  const handleBack = (currentStep: TStep) => {
     if (currentStep === 1) return
     handleNextStep(currentStep - 1 as TStep)
   }
@@ -44,7 +44,7 @@ export const Screen = () => {
   return (
     <Page
       back={!!currentProblem}
-      onClick={handleBack}
+      onClick={() => handleBack(currentStep)}
     >
       <Background
         key={currentProblem}
