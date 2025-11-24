@@ -28,14 +28,14 @@ export const Screen = () => {
     setTimeout(() => {
       setCurrentStep(step)
       setIsAnimating(false)
+      if (step === 2) {
+        setCurrentProblem(null)
+      }
     }, TRANSITION_ANIMATION)
   }
 
   const handleBack = () => {
     if (currentStep === 1) return
-    if (currentStep === 2) {
-      setCurrentProblem(null)
-    }
     handleNextStep(currentStep - 1 as TStep)
   }
 
