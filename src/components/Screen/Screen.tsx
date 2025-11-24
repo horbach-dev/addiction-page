@@ -28,7 +28,7 @@ export const Screen = () => {
     setTimeout(() => {
       setCurrentStep(step)
       setIsAnimating(false)
-      if (isBack && step === 2) {
+      if (isBack && step === 1) {
         setCurrentProblem(null)
       }
     }, TRANSITION_ANIMATION)
