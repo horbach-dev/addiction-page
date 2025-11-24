@@ -14,7 +14,7 @@ export function Page({ children, back = true, onClick }: PropsWithChildren<{
       });
     }
     hideBackButton();
-  }, [back]);
+  }, [back, onClick]);
 
   return <>{children}</>;
 }

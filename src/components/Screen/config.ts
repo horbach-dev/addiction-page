@@ -10,6 +10,8 @@ export const STEPS = {
   3: LastStep,
 }
 
+export const DEFAULT_VALUE = 18
+
 export const problems = [
   { label: 'Казино', value: 'casino' },
   { label: 'Ставки', value: 'betting' },

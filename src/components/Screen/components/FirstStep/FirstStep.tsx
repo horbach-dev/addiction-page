@@ -1,12 +1,13 @@
 import { Options } from "./components/Options";
-import { problems } from "../../config";
+import {DEFAULT_VALUE, problems} from "../../config";
 import { updateUserData } from "../../../../services/updateUserData";
 import type { TStepProps, TProblem } from "../../types";
 import styles from "../../Screen.module.css";
 
-export const FirstStep = ({ currentProblem, setCurrentProblem, handleNextStep }: TStepProps) => {
+export const FirstStep = ({ currentProblem, setValue, setCurrentProblem, handleNextStep }: TStepProps) => {
   const handleClick = (type: string) => {
     updateUserData({ type })
+    setValue(DEFAULT_VALUE)
     setCurrentProblem(type as TProblem)
     handleNextStep(2)
   }

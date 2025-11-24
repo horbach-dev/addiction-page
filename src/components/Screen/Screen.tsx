@@ -4,12 +4,11 @@ import { trackUserVisit } from "../../services/trackUserVisit";
 import { Page } from "../Page";
 import { Background } from "./components/Background";
 import { Footer } from "./components/Footer";
-import { COLORS, STEPS, getSectionIndex } from "./config";
+import { COLORS, STEPS, getSectionIndex, DEFAULT_VALUE } from "./config";
 import type { TProblem, TStep } from "./types";
 import styles from './Screen.module.css';
 
 const TRANSITION_ANIMATION = 400
-const DEFAULT_VALUE = 18
 
 export const Screen = () => {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -32,7 +31,7 @@ export const Screen = () => {
     }, TRANSITION_ANIMATION)
   }
 
-  const handleBack = (currentStep: TStep) => {
+  const handleBack = () => {
     if (currentStep === 1) return
     handleNextStep(currentStep - 1 as TStep)
   }
@@ -44,7 +43,7 @@ export const Screen = () => {
   return (
     <Page
       back={!!currentProblem}
-      onClick={() => handleBack(currentStep)}
+      onClick={handleBack}
     >
       <Background
         key={currentProblem}
