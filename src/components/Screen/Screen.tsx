@@ -33,6 +33,9 @@ export const Screen = () => {
 
   const handleBack = () => {
     if (currentStep === 1) return
+    if (currentStep === 2) {
+      setCurrentProblem(null)
+    }
     handleNextStep(currentStep - 1 as TStep)
   }
 
